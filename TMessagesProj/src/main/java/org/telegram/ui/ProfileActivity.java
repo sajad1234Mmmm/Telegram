@@ -361,7 +361,20 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private FrameLayout avatarContainer;
     private FrameLayout avatarContainer2;
     private DrawerProfileCell.AnimatedStatusView animatedStatusView;
-    private AvatarImageView avatarImage;
+    private AvatarImageView avatarImage(ImageView animatedRing = new ImageView(context);
+animatedRing.setImageResource(R.drawable.ring_animation); // باید این فایل رو هم بسازی یا بزاری تو drawable
+
+FrameLayout.LayoutParams ringParams = new FrameLayout.LayoutParams(300, 300);
+ringParams.gravity = Gravity.CENTER;
+animatedRing.setLayoutParams(ringParams);
+
+ObjectAnimator rotate = ObjectAnimator.ofFloat(animatedRing, "rotation", 0f, 360f);
+rotate.setDuration(4000);
+rotate.setRepeatCount(ValueAnimator.INFINITE);
+rotate.setInterpolator(new LinearInterpolator());
+rotate.start();
+
+frameLayout.addView(animatedRing); // اگه frameLayout خطا داد، به‌جاش layoutAvatarContainer یا parentContainer استفاده کن);
     private View avatarOverlay;
     private AnimatorSet avatarAnimation;
     private RadialProgressView avatarProgressView;
